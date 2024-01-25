@@ -1,0 +1,9 @@
+main:
+  - title: "About"
+    url: /about/
+  - title: "Research"
+    url: /research/
+  - title: "Projects"
+    url: "/Files/ECO412_Final_Presentation.pdf"
+  - title: "ESPN"
+    url: 
