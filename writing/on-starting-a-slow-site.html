@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- TITLE: change this for every post -->
+<title>On starting a slow site — Debashish Manna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="page-header">
+  <a class="back-link" href="./">← writing</a>
+  <!-- POST TITLE -->
+  <h1 class="page-title">On starting a slow site</h1>
+  <!-- POST DATE — keep in sync with the entry in posts.json -->
+  <p class="post-meta">2026.08.13</p>
+</header>
+
+<!-- POST BODY — write in plain HTML: <p>, <h2>, <blockquote> all have styles already -->
+<main class="post-content">
+  <p>Most personal sites get built the week before they're needed and abandoned the week after.
+    This one is meant to work differently: a place to put down a thought before it evaporates,
+    not a portfolio performing busyness for whoever's reading.</p>
+
+  <p>The rule for this page, going forward, is simple — nothing goes here unless it would survive
+    being read a year from now. Not because everything has to be profound, but because most
+    writing that's just performance doesn't survive that test, and it's an easy filter to keep.</p>
+
+  <h2>Why static, why plain HTML</h2>
+  <p>No build step, no framework to keep updated, no dependency that quietly breaks in eighteen
+    months. A new post is a copy of this file, a new line in <code>posts.json</code>, and a
+    <code>git push</code>. That's the whole workflow — see the README in the repo root for the
+    exact steps.</p>
+
+  <blockquote>The maintenance cost of a personal site should round to zero, or it stops being personal.</blockquote>
+
+  <p>More soon, on the actual quant/aero overlap I keep circling back to.</p>
+</main>
+
+</body>
+</html>

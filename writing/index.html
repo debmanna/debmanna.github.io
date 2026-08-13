@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing — Debashish Manna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="page-header">
+  <a class="back-link" href="../">← home</a>
+  <h1 class="page-title">writing</h1>
+</header>
+
+<main class="post-content">
+  <ul class="entry-list" id="allWritingList">
+    <!-- populated by ../assets/js/main.js-style fetch; static fallback below -->
+    <li class="entry entry-writing">
+      <span class="entry-date">2026.08</span>
+      <a class="entry-title" href="on-starting-a-slow-site.html">On starting a slow site</a>
+    </li>
+  </ul>
+</main>
+
+<script>
+  fetch("posts.json", { cache: "no-store" })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((posts) => {
+      if (!Array.isArray(posts) || posts.length === 0) return;
+      const list = document.getElementById("allWritingList");
+      list.innerHTML = "";
+      posts
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .forEach((post) => {
+          const li = document.createElement("li");
+          li.className = "entry entry-writing";
+          const d = new Date(post.date);
+          const dateLabel = isNaN(d) ? post.date : d.toISOString().slice(0, 7).replace("-", ".");
+          li.innerHTML = `<span class="entry-date">${dateLabel}</span><a class="entry-title" href="${post.slug}.html">${post.title}</a>`;
+          list.appendChild(li);
+        });
+    })
+    .catch(() => {});
+</script>
+</body>
+</html>
