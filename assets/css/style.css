@@ -2,13 +2,13 @@
    Terminal Philosopher — design tokens
    ============================================ */
 :root {
-  --bg: #1C1C1E;
-  --surface: #242426;
-  --text: #E8E6DD;
-  --text-dim: #9A9A9E;
-  --accent-blue: #6C8CA6;
-  --accent-amber: #C9A15C;
-  --border: #333335;
+  --bg: #FFFFFF;
+  --surface: #F4F4F4;
+  --text: #111111;
+  --text-dim: #5A5A5A;
+  --accent-blue: #3D6A8C;
+  --accent-amber: #9A6B1F;
+  --border: #DDDDDD;
 
   --font-display: 'General Sans', 'Inter', -apple-system, sans-serif;
   --font-body: 'General Sans', 'Inter', -apple-system, sans-serif;
