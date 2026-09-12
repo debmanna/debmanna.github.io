@@ -26,8 +26,9 @@
 })();
 
 // ============================================
-// Hero headline: slow, deliberate typewriter effect.
-// Skipped entirely if the visitor prefers reduced motion —
+// Hero headline: cycles through each word — typed, held, then
+// cleared — and settles on the last one. Simple, not a flashy
+// gimmick. Skipped entirely if the visitor prefers reduced motion —
 // the full line is already in the HTML so nothing is lost.
 // ============================================
 (function typeHeroName() {
@@ -38,23 +39,61 @@
   if (prefersReducedMotion) return;
 
   const fullText = el.textContent;
+  const words = fullText.split(" "); // ["Cogitating.", "Optimizing.", "Solving."]
   el.textContent = "";
 
-  const baseDelay = 85;   // ms per character — slow on purpose, not a flashy typewriter
-  const pauseAfterPeriod = 480;
+  const typeDelay = 105;      // ms per character while typing
+  const deleteDelay = 95;     // ms per character while clearing
+  const pauseAfterWord = 620; // beat after a word is fully typed, before it's cleared
+  const pauseBeforeNext = 300; // beat after clearing, before the next word starts
 
-  let i = 0;
-  function typeNext() {
-    if (i <= fullText.length) {
-      el.innerHTML = escapeHtml(fullText.slice(0, i)) + '<span class="cursor-blink" aria-hidden="true">▍</span>';
-      const justTyped = fullText[i - 1];
-      i++;
-      setTimeout(typeNext, justTyped === "." ? pauseAfterPeriod : baseDelay);
-    } else {
-      el.textContent = fullText; // drop the cursor once it's done
-    }
+  const cursor = '<span class="cursor-blink" aria-hidden="true">▍</span>';
+
+  function render(current) {
+    el.innerHTML = escapeHtml(current) + cursor;
   }
-  setTimeout(typeNext, 200); // brief beat before it starts
+
+  function typeWord(word, onDone) {
+    let i = 0;
+    (function step() {
+      if (i <= word.length) {
+        render(word.slice(0, i));
+        i++;
+        setTimeout(step, typeDelay);
+      } else {
+        onDone();
+      }
+    })();
+  }
+
+  function deleteWord(word, onDone) {
+    let i = word.length;
+    (function step() {
+      if (i >= 0) {
+        render(word.slice(0, i));
+        i--;
+        setTimeout(step, deleteDelay);
+      } else {
+        onDone();
+      }
+    })();
+  }
+
+  function nextWord(wordIndex) {
+    const word = words[wordIndex];
+    const isLast = wordIndex === words.length - 1;
+
+    typeWord(word, () => {
+      if (isLast) return; // stays put — cursor keeps blinking via CSS
+      setTimeout(() => {
+        deleteWord(word, () => {
+          setTimeout(() => nextWord(wordIndex + 1), pauseBeforeNext);
+        });
+      }, pauseAfterWord);
+    });
+  }
+
+  setTimeout(() => nextWord(0), 250);
 })();
 
 // ============================================
@@ -84,6 +123,10 @@
         `;
         list.appendChild(li);
       });
+
+    if (typeof window.__revealWritingEntries === "function") {
+      window.__revealWritingEntries();
+    }
   } catch (e) {
     // fetch fails on file:// — static fallback in the HTML covers that case
   }
@@ -126,4 +169,45 @@ function escapeHtml(str) {
   );
 
   items.forEach((item) => observer.observe(item));
+})();
+
+// ============================================
+// Gentle scroll reveals for the rest of the page — sections and
+// list entries fade up a little as they come into view. Purely
+// decorative: skipped for reduced-motion, and anything missed
+// (no-JS, IO unsupported) is just visible immediately via CSS fallback.
+// ============================================
+(function initScrollReveals() {
+  if (!("IntersectionObserver" in window)) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  function makeRevealable(el, delayStep) {
+    if (!el || el.classList.contains("reveal")) return;
+    el.classList.add("reveal");
+    if (delayStep) el.style.transitionDelay = delayStep + "ms";
+    observer.observe(el);
+  }
+
+  document.querySelectorAll(".section-body > p").forEach((p, i) => makeRevealable(p, i * 90));
+  document.querySelectorAll("#workList .entry").forEach((el, i) => makeRevealable(el, i * 80));
+  document.querySelectorAll("#writingList .entry").forEach((el, i) => makeRevealable(el, i * 80));
+  makeRevealable(document.querySelector(".footer-links"));
+  makeRevealable(document.querySelector(".footer-note"), 80);
+
+  // re-run for writing entries pulled in later via fetch
+  window.__revealWritingEntries = function () {
+    document.querySelectorAll("#writingList .entry").forEach((el, i) => makeRevealable(el, i * 80));
+  };
 })();

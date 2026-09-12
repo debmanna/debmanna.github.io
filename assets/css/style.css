@@ -4,7 +4,7 @@
 :root {
   --bg: #FFFFFF;
   --surface: #F4F4F4;
-  --text: #111111;
+  --text: #242424;
   --text-dim: #5A5A5A;
   --accent-blue: #3D6A8C;
   --accent-amber: #9A6B1F;
@@ -107,28 +107,8 @@ a:focus-visible {
   font-size: clamp(1.1rem, 5vw, 3.25rem);
   letter-spacing: -0.02em;
   margin: 0 0 var(--space-2);
-  color: var(--text);
+  color: #2A2A2A;
   white-space: nowrap;
-}
-
-/* a small converging line + point — an equilibrium being reached,
-   understated enough to read as a design detail, not a gimmick */
-.equilibrium-mark {
-  position: relative;
-  width: 64px;
-  height: 1px;
-  background: var(--accent-amber);
-  margin: 0 0 var(--space-2);
-}
-.equilibrium-mark::after {
-  content: "";
-  position: absolute;
-  right: -3px;
-  top: -2.5px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-amber);
 }
 
 .cursor-line {
@@ -141,6 +121,14 @@ a:focus-visible {
 
 .cursor-blink {
   color: var(--accent-amber);
+  animation: cursor-blink 1.05s step-end infinite;
+}
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-blink { animation: none; }
 }
 
 /* tabular numerals wherever numbers sit in a mono column —
@@ -472,4 +460,20 @@ main, .footer {
   font-size: 0.92rem;
   color: var(--text-dim);
   max-width: 42rem;
+}
+
+/* ============================================
+   Scroll reveals — section paragraphs, project/writing
+   entries, and the footer fade up gently as they're
+   scrolled into view. Reduced-motion users and no-JS
+   visitors just see everything in place, no animation.
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
