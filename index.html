@@ -19,16 +19,39 @@
 <div class="grain" aria-hidden="true"></div>
 
 <header class="hero">
-  <img src="assets/img/Personal_Image.jpeg" alt="Debanjan Manna" class="profile-photo">
-  <p class="eyebrow">Debanjan Manna</p>
-  <h1 class="hero-name">Cogitating. Optimizing. Solving.</h1>
-  <p class="cursor-line" id="cursorLine" aria-live="polite"><span id="cursorText"></span><span class="cursor-blink" aria-hidden="true">▍</span></p>
-  <nav class="hero-nav" aria-label="Primary">
-    <a href="#about">about()</a>
-    <a href="#projects">projects()</a>
-    <a href="#writing">writing()</a>
-    <a href="#contact">contact()</a>
+
+  <nav class="hero-directory" aria-label="Primary">
+    <a href="#about" class="dir-group">about()</a>
+
+    <div class="dir-group">
+      <button type="button" class="dir-toggle" aria-expanded="false" aria-controls="dir-projects">
+        projects() <span class="dir-chevron" aria-hidden="true">▾</span>
+      </button>
+      <div class="dir-sub-list" id="dir-projects" hidden>
+        <a href="https://github.com/debmanna/ECO611" target="_blank" rel="noopener" class="dir-sub">ECO611</a>
+        <a href="https://github.com/debmanna/AE471" target="_blank" rel="noopener" class="dir-sub">AE471</a>
+      </div>
+    </div>
+
+    <div class="dir-group">
+      <button type="button" class="dir-toggle" aria-expanded="false" aria-controls="dir-writing">
+        writing() <span class="dir-chevron" aria-hidden="true">▾</span>
+      </button>
+      <div class="dir-sub-list" id="dir-writing" hidden>
+        <a href="writing/on-starting-a-slow-site.html" class="dir-sub">on starting a slow site</a>
+      </div>
+    </div>
+
+    <a href="#contact" class="dir-group">contact()</a>
   </nav>
+
+  <div class="hero-manifesto">
+    <img src="assets/img/Personal_Image.jpeg" alt="Debanjan Manna" class="profile-photo">
+    <p class="eyebrow">Debanjan Manna</p>
+    <h1 class="hero-name" id="heroName">Cogitating. Optimizing. Solving.</h1>
+    <div class="equilibrium-mark" aria-hidden="true"></div>
+    <p class="cursor-line" id="cursorLine" aria-live="polite"><span id="cursorText"></span></p>
+  </div>
 </header>
 
 <main>

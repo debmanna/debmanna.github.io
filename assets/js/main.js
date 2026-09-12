@@ -1,13 +1,61 @@
 // ============================================
-// Cursor line: static, no typing/erasing animation.
-// Pick whichever line reads best as the one fixed tagline under your name.
+// Cursor line: static tagline under the headline, no
+// typing/erasing animation here — that's reserved for the
+// headline itself.
 // ============================================
-const line = "trying to derive the equilibrium before assuming one exists.";
+(function setCursorLine() {
+  const line = "trying to derive the equilibrium before assuming one exists.";
+  const el = document.getElementById("cursorText");
+  if (el) el.textContent = line;
+})();
 
-const el = document.getElementById("cursorText");
-if (el) {
-  el.textContent = line;
-}
+// ============================================
+// Hero directory: projects() and writing() reveal their
+// sub-links on click instead of showing them all the time.
+// ============================================
+(function heroDirectoryToggles() {
+  document.querySelectorAll(".dir-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = document.getElementById(btn.getAttribute("aria-controls"));
+      if (!target) return;
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!isOpen));
+      target.hidden = isOpen;
+    });
+  });
+})();
+
+// ============================================
+// Hero headline: slow, deliberate typewriter effect.
+// Skipped entirely if the visitor prefers reduced motion —
+// the full line is already in the HTML so nothing is lost.
+// ============================================
+(function typeHeroName() {
+  const el = document.getElementById("heroName");
+  if (!el) return;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) return;
+
+  const fullText = el.textContent;
+  el.textContent = "";
+
+  const baseDelay = 85;   // ms per character — slow on purpose, not a flashy typewriter
+  const pauseAfterPeriod = 480;
+
+  let i = 0;
+  function typeNext() {
+    if (i <= fullText.length) {
+      el.innerHTML = escapeHtml(fullText.slice(0, i)) + '<span class="cursor-blink" aria-hidden="true">▍</span>';
+      const justTyped = fullText[i - 1];
+      i++;
+      setTimeout(typeNext, justTyped === "." ? pauseAfterPeriod : baseDelay);
+    } else {
+      el.textContent = fullText; // drop the cursor once it's done
+    }
+  }
+  setTimeout(typeNext, 200); // brief beat before it starts
+})();
 
 // ============================================
 // Writing list: pulls from writing/posts.json so adding a new post

@@ -30,8 +30,7 @@
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  margin: 0 auto 1rem auto;   /* centers it above your name */
-  /* border: 1px solid #000;     /* optional thin outline, matches your black/white look */
+  margin: 0 0 1rem 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -84,10 +83,14 @@ a:focus-visible {
 .hero {
   position: relative;
   z-index: 2;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: var(--space-6) var(--space-3) var(--space-4);
-  text-align: center;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-4);
+}
+
+.hero-manifesto {
+  max-width: 42rem;
 }
 
 .eyebrow {
@@ -101,10 +104,31 @@ a:focus-visible {
 .hero-name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(2.25rem, 6vw, 3.25rem);
+  font-size: clamp(1.1rem, 5vw, 3.25rem);
   letter-spacing: -0.02em;
   margin: 0 0 var(--space-2);
   color: var(--text);
+  white-space: nowrap;
+}
+
+/* a small converging line + point — an equilibrium being reached,
+   understated enough to read as a design detail, not a gimmick */
+.equilibrium-mark {
+  position: relative;
+  width: 64px;
+  height: 1px;
+  background: var(--accent-amber);
+  margin: 0 0 var(--space-2);
+}
+.equilibrium-mark::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: -2.5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-amber);
 }
 
 .cursor-line {
@@ -119,15 +143,79 @@ a:focus-visible {
   color: var(--accent-amber);
 }
 
-.hero-nav {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-3);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
+/* tabular numerals wherever numbers sit in a mono column —
+   years and dates line up like a proper data table */
+.timeline-year,
+.entry-meta,
+.entry-date,
+.post-meta {
+  font-variant-numeric: tabular-nums;
 }
-.hero-nav a { border-bottom: none; color: var(--text-dim); }
-.hero-nav a:hover { color: var(--accent-blue); }
+
+/* ============================================
+   Hero directory — borrowed from deshaw.com's layout:
+   a static nav directory on the right. projects() and
+   writing() are click-to-expand toggles so sub-links stay
+   hidden until asked for; about()/contact() jump straight
+   to their section since they have nothing to expand.
+   All confined to the hero itself — nothing stays fixed
+   once you scroll past it.
+   ============================================ */
+.hero-directory {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  text-align: right;
+}
+.dir-group { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; }
+
+.hero-directory a.dir-group,
+.dir-toggle {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.92rem;
+  color: var(--text);
+  border-bottom: none;
+}
+.dir-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+.hero-directory a.dir-group:hover,
+.dir-toggle:hover { color: var(--accent-blue); }
+
+.dir-chevron {
+  font-size: 0.65em;
+  color: var(--text-dim);
+  transition: transform 0.2s ease;
+}
+.dir-toggle[aria-expanded="true"] .dir-chevron { transform: rotate(180deg); }
+
+.dir-sub-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+  margin-top: 0.15rem;
+}
+.dir-sub-list[hidden] { display: none; }
+.dir-sub {
+  border-bottom: none;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-dim);
+}
+.dir-sub:hover { color: var(--accent-blue); }
 
 /* ============================================
    Sections
@@ -299,12 +387,26 @@ main, .footer {
   margin-top: var(--space-1);
 }
 
+@media (max-width: 720px) {
+  .hero {
+    display: block;
+    min-height: auto;
+    padding: var(--space-4) var(--space-2) var(--space-4);
+  }
+  .hero-directory {
+    position: static;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: var(--space-4);
+  }
+  .dir-group { align-items: flex-start; }
+  .dir-sub-list { align-items: flex-start; }
+}
+
 @media (max-width: 560px) {
-  .hero { padding: var(--space-5) var(--space-2) var(--space-4); }
   .entry { flex-direction: column; gap: 0.35rem; }
   .entry-meta { flex-direction: row; gap: var(--space-2); }
   .entry-date { flex: none; }
-  .hero-nav { flex-wrap: wrap; gap: var(--space-2); }
 }
 
 
