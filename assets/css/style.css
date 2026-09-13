@@ -218,7 +218,6 @@ main, .footer {
 
 .section {
   padding: var(--space-5) 0;
-  border-top: 1px solid var(--border);
 }
 
 .section-label {
@@ -300,7 +299,6 @@ main, .footer {
    Footer
    ============================================ */
 .footer {
-  border-top: 1px solid var(--border);
   padding-top: var(--space-4);
   padding-bottom: var(--space-5);
 }
@@ -308,9 +306,20 @@ main, .footer {
 .footer-links {
   display: flex;
   gap: var(--space-3);
+  align-items: center;
   flex-wrap: wrap;
 }
-.footer-links a { border-bottom: none; color: var(--text-dim); font-family: var(--font-mono); font-size: 0.9rem; }
+.footer-links a {
+  display: inline-flex;
+  border-bottom: none;
+  color: var(--text-dim);
+  transition: color 0.2s ease;
+}
+.footer-links a svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
 .footer-links a:hover { color: var(--accent-blue); }
 
 .footer-note {

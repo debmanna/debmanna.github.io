@@ -4,7 +4,7 @@
 // headline itself.
 // ============================================
 (function setCursorLine() {
-  const line = "trying to derive the equilibrium before assuming one exists.";
+  const line = "Embedding myself into statistical & dynamical thinking";
   const el = document.getElementById("cursorText");
   if (el) el.textContent = line;
 })();
