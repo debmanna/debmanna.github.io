@@ -201,7 +201,9 @@ function escapeHtml(str) {
   }
 
   document.querySelectorAll(".section-body > p").forEach((p, i) => makeRevealable(p, i * 90));
-  document.querySelectorAll("#workList .entry").forEach((el, i) => makeRevealable(el, i * 80));
+  document.querySelectorAll(".card-row").forEach((row) => {
+    row.querySelectorAll(".proj-card").forEach((el, i) => makeRevealable(el, i * 80));
+  });
   document.querySelectorAll("#writingList .entry").forEach((el, i) => makeRevealable(el, i * 80));
   makeRevealable(document.querySelector(".footer-links"));
   makeRevealable(document.querySelector(".footer-note"), 80);

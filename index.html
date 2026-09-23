@@ -12,6 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -28,8 +30,12 @@
         projects() <span class="dir-chevron" aria-hidden="true">▾</span>
       </button>
       <div class="dir-sub-list" id="dir-projects" hidden>
-        <a href="https://github.com/debmanna/ECO611" target="_blank" rel="noopener" class="dir-sub">ECO611</a>
-        <a href="https://github.com/debmanna/AE471" target="_blank" rel="noopener" class="dir-sub">AE471</a>
+        <a href="#p-tnti" class="dir-sub">T/NT interface</a>
+        <a href="#p-frisbee" class="dir-sub">Frisbee CFD</a>
+        <a href="#p-tvpvar" class="dir-sub">TVP-VAR · oil &amp; stocks</a>
+        <a href="#p-cptpp" class="dir-sub">India &amp; CPTPP</a>
+        <a href="#p-kalman" class="dir-sub">Kalman filter</a>
+        <a href="#projects" class="dir-sub">all projects</a>
       </div>
     </div>
 
@@ -103,46 +109,113 @@
     </div>
   </section>
 
-  <section id="projects" class="section">
+  <section id="projects" class="section section-wide">
     <p class="section-label">— projects —</p>
-    <ul class="entry-list" id="workList">
-      <li class="entry">
-        <div class="entry-meta">
-          <span class="entry-year">2026</span>
-          <span class="entry-tag">quant</span>
-        </div>
-        <div class="entry-main">
-          <a class="entry-title" href="https://github.com/debmanna/ECO611" target="_blank" rel="noopener">
-            ECO611 — market microstructure notes &amp; models
-          </a>
-          <p class="entry-desc">Coursework turned into a small library of order-book and pricing experiments.</p>
-        </div>
-      </li>
-      <li class="entry">
-        <div class="entry-meta">
-          <span class="entry-year">2026</span>
-          <span class="entry-tag">aero</span>
-        </div>
-        <div class="entry-main">
-          <a class="entry-title" href="https://github.com/debmanna/AE471" target="_blank" rel="noopener">
-            AE471 — flight dynamics &amp; control
-          </a>
-          <p class="entry-desc">Simulation and controller design for a linearised aircraft model.</p>
-        </div>
-      </li>
-      <li class="entry">
-        <div class="entry-meta">
-          <span class="entry-year">2025</span>
-          <span class="entry-tag">quant</span>
-        </div>
-        <div class="entry-main">
-          <a class="entry-title" href="#" target="_blank" rel="noopener">
-            Project title — one line on what it does
-          </a>
-          <p class="entry-desc">Replace with a real project. Keep the description to one honest sentence.</p>
-        </div>
-      </li>
-    </ul>
+    <p class="section-note">Ordered roughly from the hardest down.</p>
+
+    <div class="proj-group">
+      <div class="group-head">
+        <h3>Research</h3>
+        <p>Turbulence diagnostics and computational fluid dynamics.</p>
+      </div>
+      <div class="card-row">
+        <article class="proj-card" id="p-tnti">
+          <p class="card-meta">2023 · AE471, with Prof. A. C. Mandal</p>
+          <h3 class="card-title"><a href="papers/AE471_TNTI_Boundary_Layer.pdf" target="_blank" rel="noopener">Identifying Turbulent/Non-Turbulent Interface in a Boundary Layer Data</a></h3>
+          <p class="card-eq"><i>k</i> = ½(<i>u</i>′<sup>2</sup> + <i>w</i>′<sup>2</sup>),&ensp; ω = ∂<i>u</i>/∂<i>z</i> − ∂<i>w</i>/∂<i>x</i></p>
+          <p class="card-body">PIV fields <span class="m"><i>u</i>(<i>x</i>, <i>z</i>, <i>t</i>)</span> over a flat plate: 800 snapshots on an 18,000-point grid (≈ 1.4 × 10<sup>7</sup> samples), moved from Tecplot into a Python pipeline. From these I built the turbulent kinetic energy, turbulence intensity, total kinetic energy and vorticity fields, then located the interface by thresholding. Regions with total KE above 0.6 of its maximum behave turbulently, and the interface is cleanest for <span class="m">|<i>w</i>′| / <i>U</i><sub>∞</sub> ∈ [0.15, 0.25]</span>.</p>
+          <div class="card-links">
+            <a href="papers/AE471_TNTI_Boundary_Layer.pdf" target="_blank" rel="noopener">Report</a>
+            <a href="https://github.com/debmanna/AE471" target="_blank" rel="noopener">Notebooks on GitHub</a>
+          </div>
+        </article>
+        <article class="proj-card" id="p-frisbee">
+          <p class="card-meta">2022 · AE371, with Prof. Sanjay Mittal</p>
+          <h3 class="card-title"><a href="https://docs.google.com/presentation/d/1uhIFzlEf3K6Lfeu367Uq1OJu1i2uMZ3U8PuukrHw-fc/edit?usp=sharing" target="_blank" rel="noopener">Flow Around a Frisbee at AoA 5°</a></h3>
+          <p class="card-eq"><i>Re</i> = <i>U</i><sub>∞</sub><i>D</i> / ν ≈ 2.84 × 10<sup>5</sup>&ensp;(<i>U</i><sub>∞</sub> = 15 m/s)</p>
+          <p class="card-body">CFD of an unpowered, axisymmetric, spin-stabilised disc (<span class="m"><i>D</i> = 27.4 cm</span>) at <span class="m">α = 5°</span>. I built the geometry to Potts’ dimensions and an unstructured mesh of 6.9 × 10<sup>6</sup> nodes and 2.63 × 10<sup>7</sup> elements, with 20 inflation layers (first cell 0.09 mm; mean skewness 0.186, orthogonal quality 0.814). The case was set up for Prof. Mittal’s in-house FEM solver on the IITK HPC cluster, to be benchmarked against wind-tunnel data.</p>
+          <div class="card-links">
+            <a href="https://docs.google.com/presentation/d/1uhIFzlEf3K6Lfeu367Uq1OJu1i2uMZ3U8PuukrHw-fc/edit?usp=sharing" target="_blank" rel="noopener">Slides</a>
+            <a href="https://github.com/debmanna/Flow_Over_Frisbee" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="proj-group">
+      <div class="group-head">
+        <h3>Quantitative Models</h3>
+        <p>Bayesian time series, general equilibrium, state estimation and causal identification.</p>
+      </div>
+      <div class="card-row card-row-2">
+        <article class="proj-card" id="p-tvpvar">
+          <p class="card-meta">2024 · ECO613, with Saral Verma</p>
+          <h3 class="card-title"><a href="papers/ECO613_TVP-VAR_Covid_Oil_Stocks.pdf" target="_blank" rel="noopener">Impact of Covid-19 Pandemic on the Crude Oil and Stock Markets in the US: A Time-Varying Analysis</a></h3>
+          <p class="card-eq"><i>y<sub>t</sub></i> = <i>c<sub>t</sub></i> + <i>B</i><sub>1<i>t</i></sub><i>y</i><sub><i>t</i>−1</sub> + <i>e<sub>t</sub></i>,&ensp; <i>e<sub>t</sub></i> ∼ 𝒩(0, <i>A<sub>t</sub></i><sup>−1</sup>Σ<sub><i>t</i></sub>Σ<sub><i>t</i></sub><i>A<sub>t</sub></i><sup>−1⊤</sup>)</p>
+          <p class="card-body">Re-implementation of Liu, Wang and Lee (2020): a TVP-VAR with stochastic volatility (Nakajima, 2011) on <span class="m"><i>y<sub>t</sub></i> = (ln cases, Δ ln S&amp;P 500, Δ ln WTI)</span>, 106 daily observations from 21 Jan to 6 May 2020. Change-points were located with PELT and stationarity checked by ADF, and the lag <span class="m"><i>s</i> = 1</span> was chosen by AIC, BIC and HQIC. The parameters <span class="m">β<sub><i>t</i></sub>, <i>a<sub>t</sub></i>, <i>h<sub>t</sub></i></span> follow random walks, and the posterior is sampled by MCMC (Gibbs with Metropolis–Hastings steps, 10<sup>4</sup> draws, 10<sup>3</sup> burn-in) with Geweke diagnostics. The impulse responses show oil and equity returns moving inversely, and both responding slightly but significantly positively to the case shock.</p>
+          <div class="card-links">
+            <a href="papers/ECO613_TVP-VAR_Covid_Oil_Stocks.pdf" target="_blank" rel="noopener">Slides</a>
+          </div>
+        </article>
+        <article class="proj-card" id="p-cptpp">
+          <p class="card-meta">2023 · ECO412, with Saral Verma</p>
+          <h3 class="card-title"><a href="https://github.com/debmanna/ECO412_Project/blob/main/ECO412_Final_Presentation.pdf" target="_blank" rel="noopener">General Equilibrium Impact of India’s Accession into CPTPP Using Structural Gravity Model</a></h3>
+          <p class="card-eq"><i>X<sub>ij</sub></i> = (<i>Y<sub>i</sub></i><i>E<sub>j</sub></i> / <i>Y</i>) · (<i>t<sub>ij</sub></i> / Π<sub><i>i</i></sub><i>P<sub>j</sub></i>)<sup>1−σ</sup></p>
+          <p class="card-body">Anderson–van Wincoop structural gravity on 2021 bilateral flows for <span class="m"><i>N</i> = 20</span> economies (12 CPTPP members, India, 7 large non-members). The empirical model with exporter and importer fixed effects was estimated by PPML. The counterfactual sets <span class="m">PTA<sub><i>India</i>, <i>j</i></sub> = 1</span> for every member <span class="m"><i>j</i></span> and re-solves the full-endowment equilibrium in <span class="m">Π<sub><i>i</i></sub>, <i>P<sub>j</sub></i>, <i>p<sub>i</sub></i></span> with a modified version of Herman’s gegravity (NLS) solver. Members get <span class="m">Δ GDP > 0</span>; non-members lose slightly to trade diversion.</p>
+          <div class="card-links">
+            <a href="https://github.com/debmanna/ECO412_Project/blob/main/ECO412_Final_Presentation.pdf" target="_blank" rel="noopener">Slides</a>
+            <a href="https://github.com/debmanna/ECO412_Project" target="_blank" rel="noopener">Code on GitHub</a>
+          </div>
+        </article>
+        <article class="proj-card" id="p-kalman">
+          <p class="card-meta">2023 · IME625, with S. Indoliya and U. Verma</p>
+          <h3 class="card-title"><a href="papers/IME625_Kalman_Filter_Finance.pdf" target="_blank" rel="noopener">On Linear Kalman Filter and Its Applications in Finance</a></h3>
+          <p class="card-eq"><i>K<sub>n</sub></i> = <i>P</i><sub><i>n</i>,<i>n</i>−1</sub><i>H</i><sup>⊤</sup>(<i>H P</i><sub><i>n</i>,<i>n</i>−1</sub><i>H</i><sup>⊤</sup> + <i>R<sub>n</sub></i>)<sup>−1</sup></p>
+          <p class="card-body">Starts from the scalar gain <span class="m"><i>k<sub>n</sub></i> = <i>p</i><sub><i>n</i>,<i>n</i>−1</sub> / (<i>p</i><sub><i>n</i>,<i>n</i>−1</sub> + <i>r<sub>n</sub></i>)</span>, obtained by minimising the posterior variance, and builds up to the five matrix equations. The continuous LTI system <span class="m">ẋ = <i>Ax</i> + <i>Bu</i></span> is discretised to <span class="m"><i>F</i> = <i>e</i><sup><i>A</i>Δ<i>t</i></sup></span>. The filter is then applied to a price with state <span class="m">(<i>x</i>, ẋ)</span>, <span class="m"><i>F</i> = [1 <i>T</i>; 0 1]</span> and <span class="m"><i>H</i> = [1 0]</span>.</p>
+          <div class="card-links">
+            <a href="papers/IME625_Kalman_Filter_Finance.pdf" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </article>
+        <article class="proj-card" id="p-cycling">
+          <p class="card-meta">2024 · ECO311, group of five</p>
+          <h3 class="card-title"><a href="papers/ECO311_Cycling_to_School.pdf" target="_blank" rel="noopener">Cycling to School: Increasing Secondary School Enrollment for Girls in India</a></h3>
+          <p class="card-eq"><i>y<sub>ihv</sub></i> = β<sub>0</sub> + β<sub>1</sub><i>F</i>·<i>T</i>·<i>BH</i> + … + ε<sub><i>ihv</i></sub></p>
+          <p class="card-body">Replication of Muralidharan and Prakash on DLHS-3 household data. The DiD (girls vs boys × cohort 14–15 vs 16–17) rejects parallel trends, so identification uses the triple difference with Jharkhand as a control state. A quadruple difference then adds <span class="m"><i>LD<sub>v</sub></i> = 𝟙{distance to school ≥ 3 km}</span>. Result: <span class="m">β̂<sub>1</sub> ≈ 0.052</span> (≈ 32% in relative terms), rising to about 0.0875 where <span class="m"><i>LD<sub>v</sub></i> = 1</span>. That points to a lower distance cost as the mechanism.</p>
+          <div class="card-links">
+            <a href="papers/ECO311_Cycling_to_School.pdf" target="_blank" rel="noopener">Slides</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="proj-group">
+      <div class="group-head">
+        <h3>Applied Studies</h3>
+        <p>Survey inference and aircraft sizing.</p>
+      </div>
+      <div class="card-row">
+        <article class="proj-card" id="p-voters">
+          <p class="card-meta">2024 · ECO413, with P. Dayal and R. Agrawal</p>
+          <h3 class="card-title"><a href="papers/ECO413_Voter_Preference.pdf" target="_blank" rel="noopener">On Parameters Influencing Voters’ Preference Dynamics in the Indian Context</a></h3>
+          <p class="card-eq">acc<sub>DT</sub> = 0.81,&ensp; acc<sub>LR</sub> = acc<sub>RF</sub> = 0.74</p>
+          <p class="card-body">Two cross-sectional surveys (<span class="m"><i>n</i> = 134</span> each) of IIT Kanpur Gen Z students, designed along survey-sampling lines to keep the cohort homogeneous. The target is political orientation on five classes, from far-left to far-right, predicted with logistic regression, decision tree, random forest and SVM. With <span class="m"><i>n</i></span> this small the estimates have high variance, so the ranking is indicative at best.</p>
+          <div class="card-links">
+            <a href="papers/ECO413_Voter_Preference.pdf" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </article>
+        <article class="proj-card" id="p-aircraft">
+          <p class="card-meta">2022 · AE461, group of four</p>
+          <h3 class="card-title"><a href="papers/AE461_Aircraft_Design_Final.pdf" target="_blank" rel="noopener">Aircraft Design: Final Report</a></h3>
+          <p class="card-eq"><i>W</i><sub>TO</sub> = <i>W<sub>E</sub></i> + <i>W<sub>f</sub></i> + <i>W</i><sub>pl</sub> = 2552 + 901 + 735 ≈ 4158 kg</p>
+          <p class="card-body">Conceptual design of a turboprop utility aircraft. Mission-segment weight fractions give the take-off weight. A matching plot (max speed, take-off run, ceiling, rate of climb) with <span class="m"><i>C</i><sub><i>D</i>0</sub> = 0.018</span> sizes the wing loading and the power, which lands in the ~600 shp turboprop class. Then an iterative NACA 4-digit airfoil selection, fuselage and tail sizing, and manoeuvre and gust V–n envelopes.</p>
+          <div class="card-links">
+            <a href="papers/AE461_Aircraft_Design_Final.pdf" target="_blank" rel="noopener">Report</a>
+            <a href="https://github.com/debmanna/AE461" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
   </section>
 
   <section id="writing" class="section">

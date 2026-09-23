@@ -278,6 +278,144 @@ main, .footer {
   color: var(--text-dim);
 }
 
+/* ============================================
+   Projects — rows of grey cards, grouped by kind,
+   roughly hardest first. Each card: context line,
+   the paper's own title, its key equation in a math
+   serif, a technical summary, and links in words. The section sits
+   a little wider than the text column so three
+   cards fit side by side.
+   ============================================ */
+.section-note {
+  margin: calc(-1 * var(--space-2)) 0 var(--space-3);
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+.section-wide {
+  width: min(70rem, calc(100vw - 2 * var(--space-3)));
+  margin-left: calc(50% - min(35rem, 50vw - var(--space-3)));
+}
+
+.proj-group { margin-top: var(--space-5); }
+.proj-group:first-of-type { margin-top: var(--space-4); }
+
+.group-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin-bottom: var(--space-3);
+}
+.group-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: -0.015em;
+}
+.group-head p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text-dim);
+}
+
+.card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18.5rem, 1fr));
+  gap: 1.25rem;
+}
+
+/* a four-card row reads better as 2 × 2 than 3 + 1 */
+@media (min-width: 761px) {
+  .card-row-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.proj-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* lets wide equations scroll instead of stretching the grid */
+  padding: 1.5rem 1.6rem 1.35rem;
+  background: #F2F2F0;
+  border: 1px solid #E6E6E3;
+  border-radius: 6px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.proj-card:hover { background: #EDEDEA; border-color: #DADAD6; }
+.proj-card:target { border-color: var(--accent-amber); }
+
+.card-meta {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.card-title {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+.card-title a { border-bottom: none; }
+
+/* key equation, set in a math serif */
+.card-eq {
+  margin: 0.2rem 0 1rem;
+  padding: 0.65rem 0.9rem;
+  background: var(--bg);
+  border-left: 2px solid var(--accent-amber);
+  border-radius: 0 4px 4px 0;
+  font-family: 'STIX Two Text', 'Cambria Math', 'Times New Roman', serif;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--text);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.card-eq sub, .card-eq sup,
+.m sub, .m sup { font-size: 0.72em; line-height: 0; }
+
+.m {
+  font-family: 'STIX Two Text', 'Cambria Math', 'Times New Roman', serif;
+  font-size: 1.06em;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.card-body {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: #3F3F3F;
+}
+
+.card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+.card-links a {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--accent-blue);
+  border-bottom: 1px solid currentColor;
+  border-bottom-color: rgba(61, 106, 140, 0.35);
+}
+.card-links a:hover {
+  color: var(--accent-amber);
+  border-bottom-color: currentColor;
+}
+
+@media (max-width: 560px) {
+  .card-row { grid-template-columns: minmax(0, 1fr); }
+  .proj-card { padding: 1.25rem 1.15rem 1.1rem; }
+  .m, .card-eq { white-space: normal; }
+}
+
 .entry-writing { align-items: baseline; }
 .entry-date {
   flex: 0 0 5.5rem;
